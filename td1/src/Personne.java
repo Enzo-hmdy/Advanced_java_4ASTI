@@ -1,3 +1,7 @@
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Scanner;
+
 public class Personne {
     String name;
     Date date;
@@ -5,7 +9,13 @@ public class Personne {
     int[] social_nbr = new int[13];
     String work;
 
-    public Personne() {
+    Personne(String name,Date date,String country,int[] social_nbr,String work)
+    {
+        this.name = name;
+        this.date = date;
+        this.country = country;
+        this.social_nbr = social_nbr;
+        this.work = work;
     }
 
     public String getName() {
@@ -48,47 +58,6 @@ public class Personne {
         this.work = work;
     }
 
-    public Personne name(String name) {
-        setName(name);
-        return this;
-    }
-
-    public Personne date(Date date) {
-        setDate(date);
-        return this;
-    }
-
-    public Personne country(String country) {
-        setCountry(country);
-        return this;
-    }
-
-    public Personne social_nbr(int[] social_nbr) {
-        setSocial_nbr(social_nbr);
-        return this;
-    }
-
-    public Personne work(String work) {
-        setWork(work);
-        return this;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof Personne)) {
-            return false;
-        }
-        Personne personne = (Personne) o;
-        return Objects.equals(name, personne.name) && Objects.equals(date, personne.date) && Objects.equals(country, personne.country) && Objects.equals(social_nbr, personne.social_nbr) && Objects.equals(work, personne.work);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, date, country, social_nbr, work);
-    }
-
     @Override
     public String toString() {
         return "{" +
@@ -100,13 +69,73 @@ public class Personne {
             "}";
     }
 
-    Personne(String name,Date date,String country,int[] social_nbr,String work)
-    {
-        this.name = name;
-        this.date = date;
-        this.country = country;
-        this.social_nbr = social_nbr;
-        this.work = work;
+    public void read(){
+        System.out.println("Que voulez vous savoir sur l'utilisateur ? \n 1-Nom \n 2-Date de naissance \n 3-Pays \n 4-Securité_sociale\n5-travail");
+        Scanner s = new Scanner(System.in);
+        switch(s.nextInt()){
+
+            case 1 : 
+                System.out.println(getName());
+            
+            case 2 : 
+                System.out.println(getDate().toString());
+
+            case 3 : 
+                System.out.println(getCountry());
+
+            case 4 : 
+                System.out.println(getSocial_nbr().toString());
+
+            case 5 : 
+                System.out.println(getWork());
+        }
+        s.close();
+
     }
 
+    public void write(){
+        System.out.println("Que voulez vous modifier sur l'utilisateur ? \n 1-Nom \n 2-Date de naissance \n 3-Pays \n 4-Securité_sociale\n5-travail");
+        Scanner s = new Scanner(System.in);
+
+        switch(s.nextInt()){
+
+            case 1 : 
+                System.out.println("Entrer un nouveau nom");
+                this.setName(s.nextLine());
+                break;
+            
+            case 2 : 
+                System.out.println(getDate().toString());
+                System.out.println("Entrer une nouvelle Date (format jj/mm/yyyy");
+                String sDate1= s.nextLine();
+                Date date = new SimpleDateFormat("dd/MM/yyyy").parse(sDate1);
+                this.setDate(date);
+                break;
+
+            case 3 : 
+                System.out.println(getCountry());
+                System.out.println("");
+                this.setName(s.nextLine());
+                break;
+
+            case 4 : 
+                System.out.println(getSocial_nbr().toString());
+                break;
+
+            case 5 : 
+                System.out.println(getWork());
+                break;
+
+            default:
+                System.out.println("Invalide Argument");
+        }
+
+    }
+
+    
+
+
+
+
 }
+
